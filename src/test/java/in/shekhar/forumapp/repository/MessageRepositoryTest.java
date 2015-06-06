@@ -29,7 +29,7 @@ public class MessageRepositoryTest {
 	@Test
 	public void testFindByMessageAuthor() {
 		
-		Message message = new Message("test_user", "hello world");
+		Message message = new Message("test_user", "hello Tapas");
 		
 		messageRepository.save(message);
 		
