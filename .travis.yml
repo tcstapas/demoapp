@@ -2,7 +2,6 @@ language: java
 script: mvn package -Popenshift
 jdk:
 - oraclejdk7
-- openjdk7
 deploy:
   provider: openshift
   user: tapas1975@gmail.com
