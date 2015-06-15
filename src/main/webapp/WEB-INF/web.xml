@@ -13,7 +13,7 @@
 		that makeup this application -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>in.shekhar.forumapp.config</param-value>
+		<param-value>in.tapas.forumapp.config</param-value>
 	</context-param>
 
 	<!-- Use the simplified configuration by default. -->

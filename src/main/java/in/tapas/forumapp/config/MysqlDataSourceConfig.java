@@ -1,4 +1,4 @@
-package in.shekhar.forumapp.config;
+package in.tapas.forumapp.config;
 
 import javax.sql.DataSource;
 
@@ -9,23 +9,21 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.orm.jpa.vendor.Database;
 
 @Configuration
-@Profile("openshift")
-public class PostgresqlDataSourceConfig implements DataSourceConfig {
+@Profile("local")
+public class MysqlDataSourceConfig implements DataSourceConfig {
 
 	@Override
 	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
-		String username = System.getenv("OPENSHIFT_POSTGRESQL_DB_USERNAME");
-		String password = System.getenv("OPENSHIFT_POSTGRESQL_DB_PASSWORD");
-		String host = System.getenv("OPENSHIFT_POSTGRESQL_DB_HOST");
-		String port = System.getenv("OPENSHIFT_POSTGRESQL_DB_PORT");
-        String databaseName = System.getenv("OPENSHIFT_APP_NAME");
-		String url = "jdbc:postgresql://" + host + ":" + port + "/"+databaseName;
+		String username = "root";
+		String host = "localhost";
+		String port = "3306";
+		String databaseName = "forumapp";
+		String url = "jdbc:mysql://" + host + ":" + port + "/" + databaseName;
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl(url);
 		dataSource.setUsername(username);
-		dataSource.setPassword(password);
 		dataSource.setTestOnBorrow(true);
 		dataSource.setTestOnReturn(true);
 		dataSource.setTestWhileIdle(true);
@@ -35,11 +33,12 @@ public class PostgresqlDataSourceConfig implements DataSourceConfig {
 		dataSource.setValidationQuery("SELECT version()");
 
 		return dataSource;
+
 	}
 
 	@Override
 	public Database database() {
-		return Database.POSTGRESQL;
+		return Database.MYSQL;
 	}
 
 }

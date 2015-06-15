@@ -1,4 +1,4 @@
-package in.shekhar.forumapp.config;
+package in.tapas.forumapp.config;
 
 import javax.sql.DataSource;
 

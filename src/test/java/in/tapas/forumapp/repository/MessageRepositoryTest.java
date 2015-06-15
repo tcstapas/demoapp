@@ -1,11 +1,11 @@
-package in.shekhar.forumapp.repository;
+package in.tapas.forumapp.repository;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
-import in.shekhar.forumapp.config.ApplicationConfig;
-import in.shekhar.forumapp.domain.Message;
+import in.tapas.forumapp.config.ApplicationConfig;
+import in.tapas.forumapp.domain.Message;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

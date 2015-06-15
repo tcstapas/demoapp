@@ -1,7 +1,7 @@
-package in.shekhar.forumapp.config;
+package in.tapas.forumapp.config;
 
-import in.shekhar.forumapp.domain.Thread;
-import in.shekhar.forumapp.repository.ThreadRepository;
+import in.tapas.forumapp.domain.Thread;
+import in.tapas.forumapp.repository.ThreadRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-@ComponentScan(basePackages = "in.shekhar.forumapp")
+@ComponentScan(basePackages = "in.tapas.forumapp")
 @Configuration
 @EnableJpaRepositories(basePackageClasses = ThreadRepository.class)
 @EnableWebMvc

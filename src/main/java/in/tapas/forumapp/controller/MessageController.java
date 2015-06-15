@@ -1,8 +1,8 @@
-package in.shekhar.forumapp.controller;
+package in.tapas.forumapp.controller;
 
-import in.shekhar.forumapp.domain.Message;
-import in.shekhar.forumapp.repository.MessageRepository;
-import in.shekhar.forumapp.repository.ThreadRepository;
+import in.tapas.forumapp.domain.Message;
+import in.tapas.forumapp.repository.MessageRepository;
+import in.tapas.forumapp.repository.ThreadRepository;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class MessageController {
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Message save(@RequestBody MessageVo messageVo) {
-		in.shekhar.forumapp.domain.Thread thread = threadRepository.findOne(messageVo.getThread());
+		in.tapas.forumapp.domain.Thread thread = threadRepository.findOne(messageVo.getThread());
 		Message message = new Message(messageVo.getAuthor(), messageVo.getText());
 		thread.getMessages().add(message);
 		threadRepository.save(thread);

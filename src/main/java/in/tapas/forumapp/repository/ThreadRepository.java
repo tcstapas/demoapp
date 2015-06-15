@@ -1,7 +1,7 @@
-package in.shekhar.forumapp.repository;
+package in.tapas.forumapp.repository;
 
-import in.shekhar.forumapp.domain.Message;
-import in.shekhar.forumapp.domain.Thread;
+import in.tapas.forumapp.domain.Message;
+import in.tapas.forumapp.domain.Thread;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package in.shekhar.forumapp.domain;
+package in.tapas.forumapp.domain;
 
 import java.util.ArrayList;
 import java.util.HashSet;

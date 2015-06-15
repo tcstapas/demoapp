@@ -1,4 +1,4 @@
-package in.shekhar.forumapp.domain;
+package in.tapas.forumapp.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

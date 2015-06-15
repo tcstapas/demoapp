@@ -1,4 +1,4 @@
-package in.shekhar.forumapp.repository;
+package in.tapas.forumapp.repository;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -7,9 +7,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import in.shekhar.forumapp.config.ApplicationConfig;
-import in.shekhar.forumapp.domain.Message;
-import in.shekhar.forumapp.domain.Thread;
+import in.tapas.forumapp.config.ApplicationConfig;
+import in.tapas.forumapp.domain.Message;
+import in.tapas.forumapp.domain.Thread;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +40,7 @@ public class ThreadRepositoryTest {
 
 	@Test
 	public void shouldSaveThread() {
-		in.shekhar.forumapp.domain.Thread thread = newThread();
+		in.tapas.forumapp.domain.Thread thread = newThread();
 
 		threadRepository.save(thread);
 		assertNotNull(thread);
@@ -49,16 +49,16 @@ public class ThreadRepositoryTest {
 
 	@Test
 	public void shouldFindOneThread() {
-		in.shekhar.forumapp.domain.Thread thread = newThread();
+		in.tapas.forumapp.domain.Thread thread = newThread();
 		threadRepository.save(thread);
 
-		in.shekhar.forumapp.domain.Thread findOne = threadRepository.findOne(thread.getId());
+		in.tapas.forumapp.domain.Thread findOne = threadRepository.findOne(thread.getId());
 		assertNotNull(findOne);
 	}
 
 	@Test
 	public void testExists() {
-		in.shekhar.forumapp.domain.Thread thread = newThread();
+		in.tapas.forumapp.domain.Thread thread = newThread();
 		threadRepository.save(thread);
 
 		boolean exists = threadRepository.exists(thread.getId());
@@ -67,7 +67,7 @@ public class ThreadRepositoryTest {
 
 	@Test
 	public void testCount() {
-		in.shekhar.forumapp.domain.Thread thread = newThread();
+		in.tapas.forumapp.domain.Thread thread = newThread();
 		threadRepository.save(thread);
 
 		long count = threadRepository.count();
@@ -77,27 +77,27 @@ public class ThreadRepositoryTest {
 
 	@Test
 	public void testDelete() {
-		in.shekhar.forumapp.domain.Thread thread = newThread();
+		in.tapas.forumapp.domain.Thread thread = newThread();
 		threadRepository.save(thread);
 
 		threadRepository.delete(thread);
 
-		in.shekhar.forumapp.domain.Thread findOne = threadRepository.findOne(thread.getId());
+		in.tapas.forumapp.domain.Thread findOne = threadRepository.findOne(thread.getId());
 		assertNull(findOne);
 	}
 
 	@Test
 	public void testFindAll() {
-		in.shekhar.forumapp.domain.Thread thread = newThread();
+		in.tapas.forumapp.domain.Thread thread = newThread();
 		threadRepository.save(thread);
 
-		List<in.shekhar.forumapp.domain.Thread> recipes = threadRepository.findAll();
+		List<in.tapas.forumapp.domain.Thread> recipes = threadRepository.findAll();
 		assertEquals(1, recipes.size());
 	}
 
 	@Test
 	public void testFindByMessage() {
-		in.shekhar.forumapp.domain.Thread thread = newThread();
+		in.tapas.forumapp.domain.Thread thread = newThread();
 		threadRepository.save(thread);
 
 		List<Thread> threads = threadRepository.findByMessages(thread.getMessages().iterator().next());
@@ -107,20 +107,20 @@ public class ThreadRepositoryTest {
 
 	@Test
 	public void testFindByTagsIn() {
-		in.shekhar.forumapp.domain.Thread thread = newThread();
+		in.tapas.forumapp.domain.Thread thread = newThread();
 		threadRepository.save(thread);
 
-		List<in.shekhar.forumapp.domain.Thread> threads = threadRepository.findByTagsIn(Arrays.asList("test"));
+		List<in.tapas.forumapp.domain.Thread> threads = threadRepository.findByTagsIn(Arrays.asList("test"));
 
 		assertEquals(1, threads.size());
 	}
 
 	@Test
 	public void accessThreadsPageByPage() {
-		List<in.shekhar.forumapp.domain.Thread> threads = newThreads(10);
+		List<in.tapas.forumapp.domain.Thread> threads = newThreads(10);
 		threadRepository.save(threads);
 
-		Page<in.shekhar.forumapp.domain.Thread> result = threadRepository.findAll(new PageRequest(1, 1));
+		Page<in.tapas.forumapp.domain.Thread> result = threadRepository.findAll(new PageRequest(1, 1));
 
 		assertThat(result, is(notNullValue()));
 
@@ -130,21 +130,21 @@ public class ThreadRepositoryTest {
 	}
 	
 
-	private in.shekhar.forumapp.domain.Thread newThread() {
+	private in.tapas.forumapp.domain.Thread newThread() {
 		Set<Message> messages = new HashSet<Message>();
 		messages.add(new Message("test user", "test message"));
 		messages.add(new Message("another test user", "another test message"));
-		return new in.shekhar.forumapp.domain.Thread("test topic",Arrays.asList("test","test123"),messages);
+		return new in.tapas.forumapp.domain.Thread("test topic",Arrays.asList("test","test123"),messages);
 	}
 
-	private List<in.shekhar.forumapp.domain.Thread> newThreads(int count) {
-		List<in.shekhar.forumapp.domain.Thread> threads = new ArrayList<in.shekhar.forumapp.domain.Thread>();
+	private List<in.tapas.forumapp.domain.Thread> newThreads(int count) {
+		List<in.tapas.forumapp.domain.Thread> threads = new ArrayList<in.tapas.forumapp.domain.Thread>();
 
 		for (int i = 0; i < count; i++) {
 			Set<Message> messages = new HashSet<Message>();
 			messages.add(new Message("test user", "test message"));
 			messages.add(new Message("another test user", "another test message"));
-			Thread thread = new in.shekhar.forumapp.domain.Thread("test topic",Arrays.asList("test","test123"),messages);
+			Thread thread = new in.tapas.forumapp.domain.Thread("test topic",Arrays.asList("test","test123"),messages);
 			threads.add(thread);
 		}
 

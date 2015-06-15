@@ -1,4 +1,4 @@
-package in.shekhar.forumapp.controller;
+package in.tapas.forumapp.controller;
 
 public class MessageVo {
 

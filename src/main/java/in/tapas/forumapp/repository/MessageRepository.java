@@ -1,9 +1,8 @@
-package in.shekhar.forumapp.repository;
+package in.tapas.forumapp.repository;
 
 import java.util.List;
 
-import in.shekhar.forumapp.domain.Message;
-
+import in.tapas.forumapp.domain.Message;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
