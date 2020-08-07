@@ -8,7 +8,7 @@ Spring PostgreSQL Demo Application
 rhc app create forumapp tomcat-7 postgresql-9.2
 ````
 
-##Step 1 : Basic Setup - 1 ###
+##Step 1 : Basic Setup - 2 ###
 
 ```
 $git rm -rf src pom.xml
