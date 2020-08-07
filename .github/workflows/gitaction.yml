@@ -10,4 +10,4 @@ jobs:
     steps:
     - name: Pull request merged
       if: github.action == 'closed' && github.pull_request.merged == 'true'
-      run: echo merged
+      run: echo merged ...
