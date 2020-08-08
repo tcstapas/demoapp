@@ -20,4 +20,8 @@ jobs:
       run: |
             echo running on branch ${GITHUB_REF##*/}
             git branch
+            cp README.md README1.md
+            git add .
+            git commit -m "Copied files"
+            git push
             ls -R
