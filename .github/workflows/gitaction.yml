@@ -15,7 +15,6 @@ jobs:
       id: extract_branch
     - name: Pull request merged
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      uses: actions/checkout@${GITHUB_REF}
       shell: bash
       run: |
             echo "${{steps.extract_branch.output.branch}}"
