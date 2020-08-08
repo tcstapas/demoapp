@@ -19,9 +19,9 @@ jobs:
            echo '::set-env name=CURRENT_BRANCH::$current_branch'
            #echo '::set-env name=PARENT_BRANCH::$parent_branch'
            if [ "$current_branch" = *"develop"* ] || [ "$current_branch" = *"release"* ]
-              push_branch = $current_branch
+              push_branch=$current_branch
            else
-              push_branch = 'XX-1111'
+              push_branch='XX-1111'
            fi
            echo '::set-env name=MERGED_BRANCH::$push_branch'
       id: extract_branch
