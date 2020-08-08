@@ -21,7 +21,7 @@ jobs:
       shell: bash
       run: |
            current_branch=`git rev-parse --abbrev-ref HEAD`
-           echo "Current Brnch " $current_branch
+           echo "Current Branch " $current_branch
            #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
            echo '::set-env name=CURRENT_BRANCH::$current_branch'
            #echo '::set-env name=PARENT_BRANCH::$parent_branch'
@@ -38,10 +38,10 @@ jobs:
       shell: bash
       run: |
             echo running on current branch $MERGED_BRANCH
-            current_branch=`git rev-parse --abbrev-ref HEAD`
+            #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
-            if [ "$current_branch" != *"develop"* ] || [ "$current_branch" != *"release"* ]
+            if [ "$MERGED_BRANCH" != *"develop"* ] || [ "$MERGED_BRANCH" != *"release"* ]
               git config --global user.name "Tapas Chakraborty"
               git config --global user.email "tcstapas@yahoo.co.uk"
               cp README.md README1.md
