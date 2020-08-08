@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Extract Branch Name
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo running on branch ${GITHUB_REF##*/}
       id: extract_branch
     - name: Pull request merged
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
