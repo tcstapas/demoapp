@@ -26,7 +26,7 @@ jobs:
            #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
            echo '::set-env name=CURRENT_BRANCH::$current_branch'
            #echo '::set-env name=PARENT_BRANCH::$parent_branch'
-           if [ "$current_branch" == "develop" ] || [ "$current_branch" == "release" ]
+           if [ "$current_branch" == "develop" ] || [ "$current_branch" == "release" ] || [ "$current_branch" == "master" ]
            then
               merged_branch=$current_branch
            else
