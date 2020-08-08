@@ -9,10 +9,14 @@ jobs:
     name: "Create Flyway DB deployment - 1"
     runs-on: ubuntu-latest
     steps:
+    - name: Extract Branch Name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
     - name: Pull request merged
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: actions/checkout@${GITHUB_REF}
       shell: bash
       run: |
-            echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+            echo "${{steps.extract_branch.output.branch}}"
             ls -R
