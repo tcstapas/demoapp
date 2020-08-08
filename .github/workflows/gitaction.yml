@@ -6,7 +6,7 @@ on:
     branches: master
 jobs:
   build:
-    name: "Create Flyway DB deployment"
+    name: "Create Flyway DB deployment - 1"
     runs-on: ubuntu-latest
     steps:
     - name: Pull request merged
