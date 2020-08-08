@@ -31,13 +31,13 @@ jobs:
            else
               MERGED_BRANCH='XX-1111'
            fi
-           echo '::set-env name=MERGED_BRANCH::$MERGED_BRANCH'
+           echo "::set-env name=MERGED_BRANCH::$MERGED_BRANCH"
       id: extract_branch
     - name: Pull request merged
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       shell: bash
       run: |
-            echo running on current branch ${MERGED_BRANCH}
+            echo running on current branch $MERGED_BRANCH
             current_branch=`git rev-parse --abbrev-ref HEAD`
             parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             echo '::set-env name=CURRENT_BRANCH::$current_branch'
