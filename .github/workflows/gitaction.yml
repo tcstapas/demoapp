@@ -42,6 +42,7 @@ jobs:
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
             if [ "$MERGED_BRANCH" != *"develop"* ] || [ "$MERGED_BRANCH" != *"release"* ]
+            then
               git config --global user.name "Tapas Chakraborty"
               git config --global user.email "tcstapas@yahoo.co.uk"
               cp README.md README1.md
