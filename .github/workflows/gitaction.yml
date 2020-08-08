@@ -9,6 +9,7 @@ jobs:
     name: "Create Flyway DB deployment - 1"
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Extract Branch Name
       shell: bash
       run: echo running on branch ${GITHUB_REF##*/}
@@ -17,5 +18,5 @@ jobs:
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       shell: bash
       run: |
-            echo ${{ steps.extract_branch.output.branch }}
+            echo running on branch ${GITHUB_REF##*/}
             ls -R
