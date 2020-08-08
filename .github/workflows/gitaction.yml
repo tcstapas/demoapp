@@ -17,5 +17,5 @@ jobs:
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       shell: bash
       run: |
-            echo "${{steps.extract_branch.output.branch}}"
+            echo ${{ steps.extract_branch.output.branch }}
             ls -R
