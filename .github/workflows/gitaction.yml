@@ -1,5 +1,14 @@
 name: CI
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+  push:
+    branches:
+      - master
+      - develop
+      - release*
 
 jobs:
   build:
@@ -19,11 +28,11 @@ jobs:
            #echo '::set-env name=PARENT_BRANCH::$parent_branch'
            if [ "$current_branch" == "develop" ] || [ "$current_branch" == "release" ]
            then
-              push_branch=$current_branch
+              merged_branch=$current_branch
            else
-              push_branch='XX-1111'
+              merged_branch='XX-1111'
            fi
-           echo '::set-env name=MERGED_BRANCH::$push_branch'
+           echo '::set-env name=MERGED_BRANCH::$merged_branch'
       id: extract_branch
     - name: Pull request merged
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/$MERGED_BRANCH' }}
