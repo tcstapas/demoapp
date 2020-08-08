@@ -10,8 +10,8 @@ jobs:
     name: "Create Flyway DB deployment - 1"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@$v1
-    - name: Extract Branch Name
+    - uses: actions/checkout@v1
+    - name: Extract Branch Name1
       shell: bash
       run: |
            current_branch=`git rev-parse --abbrev-ref HEAD`
