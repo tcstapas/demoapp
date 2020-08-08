@@ -20,6 +20,8 @@ jobs:
       run: |
             echo running on branch ${GITHUB_REF##*/}
             git branch
+            git config --global user.name "Tapas Chakraborty"
+            git config --global user.email "tcstapas@yahoo.co.uk"
             cp README.md README1.md
             git add .
             git commit -m "Copied files"
