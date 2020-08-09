@@ -14,10 +14,10 @@ jobs:
     - name: Extract Branch Name1
       shell: bash
       run: |
-           git fetch --no-tags --prune --depth=1 origin +refs/heads/${BASE}:refs/remotes/origin/${BASE}
            CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
            echo "Current Branch " $CURRENT_BRANCH
-           PARENT_BRANCH=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
+           #PARENT_BRANCH=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
+           PARENT_BRANCH=${{ github.base_ref }}
            echo "PARENT Branch " $PARENT_BRANCH
            echo '::set-env name=CURRENT_BRANCH::$CURRENT_BRANCH'
            echo '::set-env name=PARENT_BRANCH::$PARENT_BRANCH'
