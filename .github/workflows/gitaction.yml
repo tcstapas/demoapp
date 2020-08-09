@@ -14,7 +14,7 @@ jobs:
     - name: Extract Branch Name1
       shell: bash
       run: |
-           git fetch --prune --unshallow
+           git fetch --no-tags --prune --depth=1 origin +refs/heads/${BASE}:refs/remotes/origin/${BASE}
            CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
            echo "Current Branch " $CURRENT_BRANCH
            PARENT_BRANCH=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
