@@ -34,6 +34,9 @@ jobs:
       shell: bash
       run: |
             echo running on current branch $CURRENT_BRANCH
+            URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
+            FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
+            echo "Changed Files " $FILES
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
@@ -41,7 +44,7 @@ jobs:
             then
               git config --global user.name "Tapas Chakraborty"
               git config --global user.email "tcstapas@yahoo.co.uk"
-              cp README.md README3.md
+              cp README.md README4.md
               git add .
               git commit -m "Copied files"
               git push
