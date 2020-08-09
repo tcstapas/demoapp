@@ -23,7 +23,7 @@ jobs:
            then
               export MERGED_BRANCH=$current_branch
            else
-              export MERGED_BRANCH='XX-1111'
+              export MERGED_BRANCH=$current_branch
            fi
            echo "::set-env name=MERGED_BRANCH::$MERGED_BRANCH"
       id: extract_branch
