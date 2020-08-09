@@ -1,13 +1,7 @@
 name: CI
 on:
   pull_request:
-    branches:
-      - master
-      - develop
-  push:
-    branches:
-      - master
-      - develop
+    types: [closed]
 
 jobs:
   build:
@@ -34,7 +28,7 @@ jobs:
            echo "::set-env name=MERGED_BRANCH::$MERGED_BRANCH"
       id: extract_branch
     - name: Pull request merged
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      if: github.event.pull_request.merged == true
       shell: bash
       run: |
             echo running on current branch $MERGED_BRANCH
