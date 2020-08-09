@@ -18,28 +18,28 @@ jobs:
            echo "Current Branch " $current_branch
            #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
            echo '::set-env name=CURRENT_BRANCH::$current_branch'
-           #echo '::set-env name=PARENT_BRANCH::$parent_branch'
+           echo '::set-env name=PARENT_BRANCH::$parent_branch'
            if [ "$current_branch" == "develop" ] || [ "$current_branch" == "release" ] || [ "$current_branch" == "master" ]
            then
               export MERGED_BRANCH=$current_branch
            else
               export MERGED_BRANCH=$current_branch
            fi
-           echo "::set-env name=MERGED_BRANCH::$MERGED_BRANCH"
+           echo "::set-env name=MERGED_BRANCH::$parent_branch"
       id: extract_branch
     - name: Pull request merged
       if: github.event.pull_request.merged == true
       shell: bash
       run: |
-            echo running on current branch $MERGED_BRANCH
+            echo running on current branch $CURRENT_BRANCH
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
-            if [ "$MERGED_BRANCH" != *"develop"* ] || [ "$MERGED_BRANCH" != *"release"* ]
+            if [ "$CURRENT_BRANCH" != *"develop"* ] || [ "$CURRENT_BRANCH" != *"release"* ]
             then
               git config --global user.name "Tapas Chakraborty"
               git config --global user.email "tcstapas@yahoo.co.uk"
-              cp README.md README1.md
+              cp README.md README2.md
               git add .
               git commit -m "Copied files"
               git push
