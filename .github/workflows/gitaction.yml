@@ -43,7 +43,7 @@ jobs:
             cd src/main/flyway
             chmod +x ./flyway-conversion.sh
             ls -ltr
-            ./flyway-conversion.sh $FILES
+            ./flyway-conversion.sh "$FILES"
             echo "WORKSPACE " $GITHUB_WORKSPACE
             cd $GITHUB_WORKSPACE
             ls
