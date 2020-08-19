@@ -1,1 +1,1 @@
-CREATE OR REPLACE VIEW test_view AS select * from test;
+CREATE OR REPLACE VIEW test_view_1 AS select * from test;
