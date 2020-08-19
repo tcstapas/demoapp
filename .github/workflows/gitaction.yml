@@ -37,7 +37,7 @@ jobs:
             URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
-            cd src/main/flyway
+            #cd src/main/flyway
             #./flyway-conversion.sh $FILES
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
