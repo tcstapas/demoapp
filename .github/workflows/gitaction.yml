@@ -41,6 +41,7 @@ jobs:
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
             cd src/main/flyway
+            ls
             ./flyway-conversion.sh $FILES
             cd -
             #current_branch=`git rev-parse --abbrev-ref HEAD`
@@ -55,4 +56,4 @@ jobs:
               git commit -m "Copied files"
               git push
             fi
-            ls -R
+
