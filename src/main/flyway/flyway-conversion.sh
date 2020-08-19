@@ -51,7 +51,7 @@ do
     objectName="pipe"
   fi
 
-  if [[ "$file" == *"flyway"* ]]; then
+  if [[ "$file" == *"baseddl"* ]]; then
     IFS=';' read -ra schemaList <<< "$SCHEMAS"
     for schema in $schemaList
     do
