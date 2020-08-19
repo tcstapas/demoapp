@@ -1,29 +1,54 @@
 name: CI
-on: 
+on:
   pull_request:
-    types: opened
-  push:
-    branches: master
+    types: [closed]
+
 jobs:
   build:
-    name: "Create Flyway DB deployment - 1"
+    name: "Create Flyway DB deployment - 2"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Extract Branch Name
-      shell: bash
-      run: echo running on branch ${GITHUB_REF##*/}
-      id: extract_branch
-    - name: Pull request merged
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      with:
+        ref: ${{ github.head_ref }}
+    - name: Extract Branch Name1
       shell: bash
       run: |
-            echo running on branch ${GITHUB_REF##*/}
-            git branch
-            git config --global user.name "Tapas Chakraborty"
-            git config --global user.email "tcstapas@yahoo.co.uk"
-            cp README.md README1.md
-            git add .
-            git commit -m "Copied files"
-            git push
+           export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+           echo "Current Branch " $CURRENT_BRANCH
+           #PARENT_BRANCH=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
+           export PARENT_BRANCH=${{ github.base_ref }}
+           echo "PARENT Branch " $PARENT_BRANCH
+           echo "::set-env name=CURRENT_BRANCH::$CURRENT_BRANCH"
+           echo "::set-env name=PARENT_BRANCH::$PARENT_BRANCH"
+           if [ "$CURRENT_BRANCH" == "develop" ] || [ "$CURRENT_BRANCH" == "release" ] || [ "$CURRENT_BRANCH" == "master" ]
+           then
+              export MERGED_BRANCH=$CURRENT_BRANCH
+           else
+              export MERGED_BRANCH=$CURRENT_BRANCH
+           fi
+           echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
+      id: extract_branch
+    - name: Pull request merged
+      if: github.event.pull_request.merged == true
+      shell: bash
+      run: |
+            echo running on current branch $CURRENT_BRANCH
+            URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
+            FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
+            echo "Changed Files " $FILES
+            cd src/main/flyway
+            ./flyway-conversion.sh $FILES
+            #current_branch=`git rev-parse --abbrev-ref HEAD`
+            #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
+            #echo '::set-env name=CURRENT_BRANCH::$current_branch'
+            if [ "$CURRENT_BRANCH" != *"develop"* ] || [ "$CURRENT_BRANCH" != *"release"* ]
+            then
+              git config --global user.name "Tapas Chakraborty"
+              git config --global user.email "tcstapas@yahoo.co.uk"
+              cp README.md README4.md
+              git add .
+              git commit -m "Copied files"
+              git push
+            fi
             ls -R
