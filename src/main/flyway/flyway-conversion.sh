@@ -22,7 +22,7 @@ hschemarelget(){
 }
 
 #FILE_NAME="src/main/flyway/baseddl/source/table/Create_table_XXXX.sql src/main/flyway/baseddl/source/table/Create_table_YYYY.sql src/main/flyway/baseddl/source/view/Create_view_VVVV.sql"
-FILE_NAME=$1
+FILE_NAME=$@
 echo "FILE NAME "$FILE_NAME
 IFS=' ' read -ra FileList <<< "$FILE_NAME"
 for file in "${FileList[@]}";
