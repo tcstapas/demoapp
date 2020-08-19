@@ -44,7 +44,7 @@ jobs:
             echo "Changed Files " $FILES
             cd src/main/flyway
             chmod +x ./flyway-conversion.sh
-            ls
+            ls -ltr
             ./flyway-conversion.sh $FILES
             echo "Setting working directory"
             working-directory: ${{env.working-directory}}
