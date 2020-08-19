@@ -10,8 +10,6 @@ jobs:
   build:
     name: "Create Flyway DB deployment - 2"
     runs-on: ubuntu-latest
-    env:
-      working-directory: .
     steps:
     - uses: actions/checkout@v2
       with:
