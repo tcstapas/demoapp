@@ -44,7 +44,7 @@ jobs:
             chmod +x ./flyway-conversion.sh
             ls
             ./flyway-conversion.sh $FILES
-            cd -
+            cd $HOME
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
