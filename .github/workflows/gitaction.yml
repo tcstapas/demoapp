@@ -1,7 +1,10 @@
 name: CI
 on:
   pull_request:
-    types: [closed]
+    branches:
+      - master
+      - develop
+      - release
 
 jobs:
   build:
@@ -30,7 +33,7 @@ jobs:
            echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
       id: extract_branch
     - name: Pull request merged
-      if: github.event.pull_request.merged == true
+      #if: github.event.pull_request.merged == true
       shell: bash
       run: |
             echo running on current branch $CURRENT_BRANCH
@@ -38,8 +41,12 @@ jobs:
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
             cd src/main/flyway
+            chmod +x ./flyway-conversion.sh
+            ls -ltr
             ./flyway-conversion.sh $FILES
-            cd -
+            echo "WORKSPACE " $GITHUB_WORKSPACE
+            cd $GITHUB_WORKSPACE
+            ls
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
@@ -52,4 +59,4 @@ jobs:
               git commit -m "Copied files"
               git push
             fi
-            ls -R
+
