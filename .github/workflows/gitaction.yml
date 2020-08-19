@@ -10,6 +10,8 @@ jobs:
   build:
     name: "Create Flyway DB deployment - 2"
     runs-on: ubuntu-latest
+    env:
+      working-directory: .
     steps:
     - uses: actions/checkout@v2
       with:
@@ -44,7 +46,9 @@ jobs:
             chmod +x ./flyway-conversion.sh
             ls
             ./flyway-conversion.sh $FILES
-            cd $HOME
+            echo "Setting working directory"
+            working-directory: ${{env.working-directory}}
+            ls
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
