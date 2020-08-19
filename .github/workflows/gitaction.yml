@@ -46,8 +46,8 @@ jobs:
             chmod +x ./flyway-conversion.sh
             ls -ltr
             ./flyway-conversion.sh $FILES
-            echo "Setting working directory"
-            working-directory: ${{env.working-directory}}
+            echo "WORKSPACE " $GITHUB_WORKSPACE
+            cd $GITHUB_WORKSPACE
             ls
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
