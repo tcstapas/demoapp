@@ -35,11 +35,7 @@ jobs:
            else
               export MERGED_BRANCH=$CURRENT_BRANCH
            fi
-           URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-           FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
-
            echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
-           echo "::set-env name=CHANGED_FILES::$FILES"
       id: extract_branch
     - name: Pull request merged
       if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/release' || github.ref == 'refs/heads/master'
@@ -47,6 +43,7 @@ jobs:
       shell: bash
       run: |
             echo running on current branch $CURRENT_BRANCH
+            export CHANGED_FILES=$( git diff --name-only ${{ github.event.before }} $GITHUB_SHA )
             echo "Changed Files " $CHANGED_FILES
             cd src/main/flyway
             chmod +x ./flyway-conversion.sh
