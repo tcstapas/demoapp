@@ -4,9 +4,11 @@ on:
     branches:
       - master
       - develop
+      - release
   pull_request:
     branches:
       - develop
+      - master
       - release
 
 jobs:
@@ -36,6 +38,7 @@ jobs:
            echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
       id: extract_branch
     - name: Pull request merged
+      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/release' || github.ref == 'refs/heads/master'
       #if: github.event.pull_request.merged == true
       shell: bash
       run: |
