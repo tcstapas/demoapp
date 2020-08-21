@@ -32,7 +32,7 @@ jobs:
            echo "::set-env name=CURRENT_BRANCH::$CURRENT_BRANCH"
            echo "::set-env name=PARENT_BRANCH::$PARENT_BRANCH"
            echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
-           export FILES=`git diff-tree --no-commit-id --name-only -r $SHA_SHORT`
+           export FILES=`git diff-tree --no-commit-id --name-only -r HEAD^@`
            echo "FILES Changed " $FILES
            echo "::set-output name=CHANGED_FILES::$FILES"
            echo "Changed Files "$CHANGED_FILES
