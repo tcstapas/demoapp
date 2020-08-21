@@ -40,7 +40,7 @@ jobs:
       run: |
             echo running on current branch $CURRENT_BRANCH
             echo "PR Number "$PR_NUMBER
-            export CHANGED_FILES=`git diff --name-only origin/${{ github.base_ref }} origin/${{ github.head_ref }}`
+            export CHANGED_FILES=`git diff-tree --no-commit-id --name-only -r ${{ github.sha }}`
             echo "Changed Files " $CHANGED_FILES
             cd src/main/flyway
             chmod +x ./flyway-conversion.sh
