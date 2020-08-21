@@ -23,6 +23,7 @@ jobs:
       shell: bash
       run: |
            export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+           export SHA_SHORT=`git rev-parse --short HEAD`
            echo "Current Branch " $CURRENT_BRANCH
            #PARENT_BRANCH=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
            export PARENT_BRANCH=${{ github.base_ref }}
@@ -30,8 +31,9 @@ jobs:
            echo "::set-env name=CURRENT_BRANCH::$CURRENT_BRANCH"
            echo "::set-env name=PARENT_BRANCH::$PARENT_BRANCH"
            echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
-           echo "::set-output name=CHANGED_FILES::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | xargs)"
-
+           export FILES=`git diff-tree --no-commit-id --name-only -r $SHA_SHORT`
+           echo "::set-output name=CHANGED_FILES::$FILES"
+           echo "Changed Files "$CHANGED_FILES
       id: extract_branch
     - name: Pull request merged
       if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/release' || github.ref == 'refs/heads/master'
