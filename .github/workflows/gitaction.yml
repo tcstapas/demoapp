@@ -30,8 +30,8 @@ jobs:
            echo "::set-env name=CURRENT_BRANCH::$CURRENT_BRANCH"
            echo "::set-env name=PARENT_BRANCH::$PARENT_BRANCH"
            echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
-           echo "::set-env name=PR_NUMBER::$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")"
-           echo "PR Number "$PR_NUMBER
+           echo "::set-output name=CHANGED_FILES::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | xargs)"
+
       id: extract_branch
     - name: Pull request merged
       if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/release' || github.ref == 'refs/heads/master'
@@ -39,8 +39,7 @@ jobs:
       shell: bash
       run: |
             echo running on current branch $CURRENT_BRANCH
-            echo "PR Number "$PR_NUMBER
-            export CHANGED_FILES=`git diff-tree --no-commit-id --name-only -r ${{ github.sha }}`
+            #export CHANGED_FILES=`git diff-tree --no-commit-id --name-only -r ${{ github.sha }}`
             echo "Changed Files " $CHANGED_FILES
             cd src/main/flyway
             chmod +x ./flyway-conversion.sh
