@@ -39,6 +39,7 @@ jobs:
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
             git branch
+            git pull
             git checkout $PARENT_BRANCH
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
