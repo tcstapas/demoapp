@@ -24,6 +24,7 @@ jobs:
       run: |
            export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
            export SHA_SHORT1=`git rev-parse --short HEAD`
+           git pull
            export SHA1=`git show $SHA_SHORT1 --format="%P" | sed '/^[[:space:]]*$/d' |  cut -d ' ' -f2`
            echo "Current Branch " $CURRENT_BRANCH
            echo "SHA SHORT " $SHA_SHORT1
