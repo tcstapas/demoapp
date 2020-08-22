@@ -43,6 +43,7 @@ jobs:
             git config --global user.email "tcstapas@yahoo.co.uk"
             git pull
             git checkout $PARENT_BRANCH
+            git branch
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
