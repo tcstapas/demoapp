@@ -39,16 +39,17 @@ jobs:
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
             git branch
+            git config --global user.name "Tapas Chakraborty"
+            git config --global user.email "tcstapas@yahoo.co.uk"
             git pull
             git checkout $PARENT_BRANCH
+            git branch
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
             if [ "$CURRENT_BRANCH" != *"develop"* ] || [ "$CURRENT_BRANCH" != *"release"* ]
             then
-              git config --global user.name "Tapas Chakraborty"
-              git config --global user.email "tcstapas@yahoo.co.uk"
-              cp README.md README4.md
+              #cp README.md README4.md
               git add .
               git commit -m "Copied files"
               git push
