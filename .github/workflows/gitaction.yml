@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: "Create Flyway DB deployment - 2"
+    name: "Create Flyway DB deployment"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,7 +16,6 @@ jobs:
       run: |
            export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
            echo "Current Branch " $CURRENT_BRANCH
-           #PARENT_BRANCH=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
            export PARENT_BRANCH=${{ github.base_ref }}
            echo "PARENT Branch " $PARENT_BRANCH
            echo "::set-env name=CURRENT_BRANCH::$CURRENT_BRANCH"
@@ -47,9 +46,6 @@ jobs:
             cd src/main/flyway
             ls
             chmod +x flyway-conversion.sh
-            #current_branch=`git rev-parse --abbrev-ref HEAD`
-            #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
-            #echo '::set-env name=CURRENT_BRANCH::$current_branch'
             if [ "$CURRENT_BRANCH" != *"develop"* ] || [ "$CURRENT_BRANCH" != *"release"* ]
             then
               #cp README.md README4.md
