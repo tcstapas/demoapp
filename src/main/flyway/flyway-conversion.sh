@@ -88,7 +88,7 @@ echo "FILE NAME "$FILE_NAME
 IFS=' ' read -ra FileList <<< "$FILE_NAME"
 FILE_LENGTH=${#Filelist[@]}
 FILES_ADDED='0'
-base_branch=FileList[$FILE_LENGTH-1]
+base_branch=${FileList[$FILE_LENGTH-1]}
 for file in "${FileList[@]}";
 do
   echo "file "$file
