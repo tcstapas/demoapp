@@ -47,7 +47,6 @@ jobs:
             cd src/main/flyway
             ls
             chmod +x flyway-conversion.sh
-            ./flyway-conversion.sh $FILES
             #current_branch=`git rev-parse --abbrev-ref HEAD`
             #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
             #echo '::set-env name=CURRENT_BRANCH::$current_branch'
@@ -56,8 +55,6 @@ jobs:
               #cp README.md README4.md
               git config --global user.name "Tapas Chakraborty"
               git config --global user.email "tcstapas@yahoo.co.uk"
-              git add .
-              git commit -m "Copied files"
-              git push
+              ./flyway-conversion.sh $FILES $PARENT_BRANCH
             fi
             ls -R
