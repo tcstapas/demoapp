@@ -30,11 +30,14 @@ jobs:
            echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
       id: extract_branch
     - name: Pull request merged
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: github.event.pull_request.merged == true
       shell: bash
       run: |
             echo running on current branch $CURRENT_BRANCH
             echo parent branch $PARENT_BRANCH
+            echo token ${GITHUB_TOKEN}
             URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
@@ -42,7 +45,7 @@ jobs:
             git config --global user.name "Tapas Chakraborty"
             git config --global user.email "tcstapas@yahoo.co.uk"
             git pull
-            git remote set-url origin https://tcstapas:${{ secrets.GITHUB_TOKEN }}@github.com/tcstapas/demoapp.git
+            git remote set-url origin https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
             git checkout $PARENT_BRANCH
             git branch
             cd src/main/flyway
