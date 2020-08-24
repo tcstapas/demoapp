@@ -56,6 +56,7 @@ jobs:
               git config --global user.name "Tapas Chakraborty"
               git config --global user.email "tcstapas@yahoo.co.uk"
               git remote set-url origin https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
+              git pull
               #git pull https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
               git checkout $PARENT_BRANCH
               git branch
