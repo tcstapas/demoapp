@@ -9,17 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: secrethub/actions/env-export@v0.1.0
       with:
         ref: ${{ github.head_ref }}
-      env:
-        PERSONAL_TOKEN: ${{ secrets.TOKEN_TAPAS }}
     - name: Extract Branch Name
       shell: bash
       run: |
            export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
            echo "Current Branch " $CURRENT_BRANCH
-           echo "GIT HUB TOKEN FROM SECRETS "$PERSONAL_TOKEN
            echo "GIT HUB TOKEN  " ${{ github.token }}
            export PARENT_BRANCH=${{ github.base_ref }}
            echo "PARENT Branch " $PARENT_BRANCH
@@ -46,6 +42,7 @@ jobs:
             git config --global user.name "Tapas Chakraborty"
             git config --global user.email "tcstapas@yahoo.co.uk"
             git pull
+            git remote set-url origin https://tcstapas:${{ github.token }}@github.com/tcstapas/demoapp.git
             git checkout $PARENT_BRANCH
             git branch
             cd src/main/flyway
