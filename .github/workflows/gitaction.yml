@@ -13,12 +13,13 @@ jobs:
         ref: ${{ github.head_ref }}
       env:
         PERSONAL_TOKEN: ${{ secrets.TOKEN_TAPAS }}
-    - name: Extract Branch Name1
+    - name: Extract Branch Name
       shell: bash
       run: |
            export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
            echo "Current Branch " $CURRENT_BRANCH
-           echo "GIT HUB TOKEN "$PERSONAL_TOKEN
+           echo "GIT HUB TOKEN FROM SECRETS "$PERSONAL_TOKEN
+           echo "GIT HUB TOKEN  " ${{ github.token }}
            export PARENT_BRANCH=${{ github.base_ref }}
            echo "PARENT Branch " $PARENT_BRANCH
            echo "::set-env name=CURRENT_BRANCH::$CURRENT_BRANCH"
