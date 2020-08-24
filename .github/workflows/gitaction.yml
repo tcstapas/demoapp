@@ -45,8 +45,8 @@ jobs:
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
             git branch
-            git config --global user.name "Tapas Chakraborty"
-            git config --global user.email "tcstapas@yahoo.co.uk"
+            #git config --global user.name "Tapas Chakraborty"
+            #git config --global user.email "tcstapas@yahoo.co.uk"
             #git remote set-url origin https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
             #git pull
             #git checkout $PARENT_BRANCH
