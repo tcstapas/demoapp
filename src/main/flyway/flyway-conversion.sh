@@ -3,9 +3,9 @@
 # Define your function here
 get_max_version () {
    declare -p version_array
-   version_array[0]='00'
-   version_array[1]='00'
-   version_array[2]='00'
+   version_array[0]=0
+   version_array[1]=0
+   version_array[2]=0
    MAX_MAJOR=0
    MAX_MINOR=0
    MAX_HOTFIX=0
@@ -124,11 +124,11 @@ do
       if [[ "$file" == *"$schema"* ]]; then
         seq=0
         echo "Index = "$index
-        if [[ $index == "03" ]]; then
+        if [[ $index == "30" ]]; then
           seq=`hschemaget $schema table`
           echo "seq = " $seq
           hput $schema table $seq
-        elif [[  $index == "04" ]]; then
+        elif [[  $index == "40" ]]; then
           seq=`hschemaget $schema view`
           hput $schema view $seq
         fi
@@ -164,7 +164,7 @@ do
           cd release/$schema
           echo $PWD
           declare -a version_array
-          version_array=(0 00 00)
+          version_array=(0 0 0)
           get_max_version version_array
           MAX_MAJOR=${version_array[0]}
           MAX_MINOR=${version_array[1]}
