@@ -5,18 +5,21 @@ on:
 
 jobs:
   build:
-    name: "Create Flyway DB deployment - 2"
+    name: "Create Flyway DB deployment"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.head_ref }}
-    - name: Extract Branch Name1
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Extract Branch Name
       shell: bash
       run: |
            export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
            echo "Current Branch " $CURRENT_BRANCH
-           #PARENT_BRANCH=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
+           echo "GIT HUB TOKEN  " ${{ github.token }}
            export PARENT_BRANCH=${{ github.base_ref }}
            echo "PARENT Branch " $PARENT_BRANCH
            echo "::set-env name=CURRENT_BRANCH::$CURRENT_BRANCH"
@@ -30,23 +33,37 @@ jobs:
            echo "::set-env name=MERGED_BRANCH::$PARENT_BRANCH"
       id: extract_branch
     - name: Pull request merged
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: github.event.pull_request.merged == true
       shell: bash
       run: |
             echo running on current branch $CURRENT_BRANCH
+            echo parent branch $PARENT_BRANCH
+            echo token ${GITHUB_TOKEN}
             URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
-            #current_branch=`git rev-parse --abbrev-ref HEAD`
-            #parent_branch=`git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
-            #echo '::set-env name=CURRENT_BRANCH::$current_branch'
+            git branch
+            #git config --global user.name "Tapas Chakraborty"
+            #git config --global user.email "tcstapas@yahoo.co.uk"
+            #git remote set-url origin https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
+            #git pull
+            #git checkout $PARENT_BRANCH
+            #git branch
             if [ "$CURRENT_BRANCH" != *"develop"* ] || [ "$CURRENT_BRANCH" != *"release"* ]
             then
               git config --global user.name "Tapas Chakraborty"
               git config --global user.email "tcstapas@yahoo.co.uk"
-              cp README.md README4.md
-              git add .
-              git commit -m "Copied files"
-              git push
+              #git remote set-url origin https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
+              git pull
+              git clone https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
+              cd demoapp
+              git checkout $PARENT_BRANCH
+              git branch
+              cd src/main/flyway
+              ls
+              chmod +x flyway-conversion.sh
+              ./flyway-conversion.sh $FILES ${GITHUB_TOKEN} $PARENT_BRANCH
             fi
             ls -R
