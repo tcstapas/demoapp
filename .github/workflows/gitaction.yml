@@ -57,6 +57,7 @@ jobs:
               git config --global user.email "tcstapas@yahoo.co.uk"
               #git remote set-url origin https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
               #git pull
+              echo "Git Clone "
               git clone https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
               cd demoapp
               echo "Current directory " $PWD
