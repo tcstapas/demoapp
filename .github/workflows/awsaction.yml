@@ -5,18 +5,20 @@ jobs:
     name: "Trigger pipeline when branch created"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.head_ref }}
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Trigger Branch Name
-      if: ${{ contains(github.ref,'refs/heads/release-') }}
-      shell: bash
-      run: |
-           echo "Action triggered"
-           echo ${{ github.ref }}
+      - name: Assume Role
+        uses: youyo/awscredswrap@master
+        with:
+          role_arn: ${{ secrets.ROLE_ARN }}
+          duration_seconds: 3600
+          role_session_name: 'awscredswrap@GitHubActions'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: 'us-east-1'
+      - name: Identity Check
+        uses: actions/aws/cli@master
+        with:
+          args: sts get-caller-identity
            
 
 
