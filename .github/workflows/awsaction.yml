@@ -1,12 +1,8 @@
 name: pipeline-CI
-on:
-  push:
-    types: [created]
-    branches:
-       release-*
-
+on: create
 jobs:
   build:
+    if: ${{ contains(github.ref, 'refs/heads/releases/') }}
     name: "Trigger pipeline when branch created"
     runs-on: ubuntu-latest
     steps:
