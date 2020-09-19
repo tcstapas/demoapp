@@ -17,7 +17,7 @@ jobs:
            echo "Action triggered"
            echo ${{ github.ref }}
            branch_name=${{ github.event.ref }}
-           echo "Branch Name " $branch_name
+           echo "Branch Name ="$branch_name
            if [ "$branch_name" == "release"* ]
            then
              echo "Release branch deleted"
