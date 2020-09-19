@@ -12,6 +12,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Trigger Branch Name
+      if: contains(${{ github.ref }},'refs/heads/release-')
       shell: bash
       run: |
            echo "Action triggered"
