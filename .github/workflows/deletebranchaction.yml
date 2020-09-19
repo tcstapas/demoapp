@@ -16,5 +16,5 @@ jobs:
       run: |
            echo "Action triggered"
            echo ${{ github.ref }}
-           echo ${{ github.event.ref_type }}
+           echo "${{ github.event.ref }} - ${{ github.event.ref_type }}"
            
