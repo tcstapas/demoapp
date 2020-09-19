@@ -1,0 +1,23 @@
+name: pipeline-CI
+on: create
+jobs:
+  build:
+    name: "Trigger pipeline when branch created"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Trigger Branch Name
+      if: ${{ contains(github.ref,'refs/heads/release-') }}
+      shell: bash
+      run: |
+           echo "Action triggered"
+           echo ${{ github.ref }}
+           
+
+
+

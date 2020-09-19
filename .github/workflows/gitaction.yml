@@ -35,19 +35,20 @@ jobs:
     - name: Pull request merged
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TAPAS_TOKEN: ${{ secrets.TAPAS_TOKEN }}
       if: github.event.pull_request.merged == true
       shell: bash
       run: |
             echo running on current branch $CURRENT_BRANCH
             echo parent branch $PARENT_BRANCH
-            echo token ${GITHUB_TOKEN}
+            echo token ${TAPAS_TOKEN}
             URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
             FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
             echo "Changed Files " $FILES
             git branch
             #git config --global user.name "Tapas Chakraborty"
             #git config --global user.email "tcstapas@yahoo.co.uk"
-            #git remote set-url origin https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
+            #git remote set-url origin https://tcstapas:${TAPAS_TOKEN}@github.com/tcstapas/demoapp.git
             #git pull
             #git checkout $PARENT_BRANCH
             #git branch
@@ -55,10 +56,12 @@ jobs:
             then
               git config --global user.name "Tapas Chakraborty"
               git config --global user.email "tcstapas@yahoo.co.uk"
-              #git remote set-url origin https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
-              git pull
-              git clone https://tcstapas:${GITHUB_TOKEN}@github.com/tcstapas/demoapp.git
+              #git remote set-url origin https://tcstapas:${TAPAS_TOKEN}@github.com/tcstapas/demoapp.git
+              #git pull
+              echo "Git Clone "
+              git clone https://tcstapas:${TAPAS_TOKEN}@github.com/tcstapas/demoapp.git
               cd demoapp
+              echo "Current directory " $PWD
               git checkout $PARENT_BRANCH
               git branch
               cd src/main/flyway

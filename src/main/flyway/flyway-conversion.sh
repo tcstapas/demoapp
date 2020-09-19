@@ -3,12 +3,12 @@
 # Define your function here
 get_max_version () {
    declare -p version_array
-   version_array[0]='00'
-   version_array[1]='00'
-   version_array[2]='00'
+   version_array[0]=0
+   version_array[1]=0
+   version_array[2]=0
    MAX_MAJOR=0
-   MAX_MINOR='00'
-   MAX_HOTFIX='00'
+   MAX_MINOR=0
+   MAX_HOTFIX=0
    for sqlfile in `ls -R`
    do
      #echo $sqlfile
@@ -55,8 +55,8 @@ get_max_version () {
       fi
    done
    version_array[0]=$MAX_MAJOR
-   version_array[1]=`printf "%02d" $MAX_MINOR`
-   version_array[2]=`printf "%02d" $MAX_HOTFIX`
+   version_array[1]=`printf "%d" $MAX_MINOR`
+   version_array[2]=`printf "%d" $MAX_HOTFIX`
 }
 
 hput() {
@@ -106,13 +106,13 @@ do
   objectName=''
   echo "SQL FILE NAME " $SQL_FILE_NAME
   if [[ $SQL_FILE_NAME == *"table"* ]]; then
-    index='03'
+    index='30'
     objectName="table"
   elif [[ $SQL_FILE_NAME == *"view"* ]]; then
-    index='04'
+    index='40'
     objectName="view"
   elif [[ $SQL_FILE_NAME == *"pipe"* ]]; then
-    index='05'
+    index='50'
     objectName="pipe"
   fi
 
@@ -124,11 +124,11 @@ do
       if [[ "$file" == *"$schema"* ]]; then
         seq=0
         echo "Index = "$index
-        if [[ $index == "03" ]]; then
+        if [[ $index == "30" ]]; then
           seq=`hschemaget $schema table`
           echo "seq = " $seq
           hput $schema table $seq
-        elif [[  $index == "04" ]]; then
+        elif [[  $index == "40" ]]; then
           seq=`hschemaget $schema view`
           hput $schema view $seq
         fi
@@ -145,16 +145,16 @@ do
           echo "File count is zero"
           if [[ "$base_branch" == "develop" ]]; then
             MAJOR=1
-            MINOR='00'
-            HOTFIX='00'
+            MINOR=0
+            HOTFIX=0
           elif [[ "$base_branch" == "release" ]]; then
             MAJOR=0
-            MINOR='01'
-            HOTFIX='00'
+            MINOR=1
+            HOTFIX=0
           elif [[ "$base_branch" == "hotfix" ]]; then
             MAJOR=0
-            MINOR='00'
-            HOTFIX='01'
+            MINOR=0
+            HOTFIX=1
           fi
           NEW_FILE_NAME=V$MAJOR.$MINOR.$HOTFIX.$index.1__$SQL_FILE_NAME
           echo "New File Name : " $NEW_FILE_NAME
@@ -164,7 +164,7 @@ do
           cd release/$schema
           echo $PWD
           declare -a version_array
-          version_array=(0 00 00)
+          version_array=(0 0 0)
           get_max_version version_array
           MAX_MAJOR=${version_array[0]}
           MAX_MINOR=${version_array[1]}
@@ -182,8 +182,8 @@ do
               MAX_MAJOR=$((MAX_MAJOR+1))
               hput $schema MAX_MAJOR $MAX_MAJOR
             fi
-            MAX_MINOR='00'
-            MAX_HOTFIX='00'
+            MAX_MINOR=0
+            MAX_HOTFIX=0
           fi
 
           if [[ "$base_branch" == *"release"* ]]; then
