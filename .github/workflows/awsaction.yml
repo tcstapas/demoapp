@@ -15,10 +15,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: 'us-east-1'
-      - name: Identity Check
-        uses: actions/aws/cli@master
-        with:
-          args: sts get-caller-identity
+      - name: Install pip
+        shell: bash
+        run: |
+          pip install awscli
+          aws s3 ls
            
 
 
