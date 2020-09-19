@@ -17,8 +17,11 @@ jobs:
           AWS_DEFAULT_REGION: 'us-east-1'
       - name: Install pip
         shell: bash
+        if: ${{ contains(github.ref,'refs/heads/release-') }}
         run: |
           pip install awscli
+          echo "Action triggered"
+          echo ${{ github.ref }}
           aws s3 ls
            
 
